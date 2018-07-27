@@ -1,12 +1,12 @@
 # victorops-azure-integration
-Microsoft Azure and the incident management platform VictorOps do not have an automatically working integration at the moment. This manual integration aims to include all the essential features that would include in a regular integration.
+## Background. Why not use the VictorOps integration listed on their website?
+Microsoft Azure and the incident management platform VictorOps do not have an automatically working integration at the moment. In fact, the integration they provide works with Microsoft OMS, a deprecated platform in the Azure ecosystem. This manual integration aims to include all the essential features that would include in a regular integration.
 
-Note: This works for both Azure metric alerts and custom log alerts. You simply have to connect either alert to the action group with the logic app’s webhook (which will send the message to VictorOps).
+Note: This works for ALL forms of Azure alerts. You simply have to connect either alert to the action group with the logic app’s webhook (which will send the message to VictorOps).
 
 For the time being, my fix is to use a Logic App to mold the payload into one VictorOps will accept from its [REST API](https://help.victorops.com/knowledge-base/victorops-restendpoint-integration/). Here is a summary of what we’re about to do:
 
 Consider any alert created by the Azure Monitor. Oftentimes we would simply link this alert to an action group with a webhook that links directly to an incident management platform. For our workaround, we will instead route the webhook URL to a logic app which will handle the alert payload (because we also cannot construct a custom JSON with the current version of Azure monitor).
-
 
 In a support case I opened with Azure in July 2018, a VictorOps support engineer told me that there are plans on the horizon that with deprecation/merging of OMS, custom JSON could be added to all Azure Monitor alert types/rules rendering this manual integration obsolete (but for the time being this is how we'll handle integration).
 
@@ -30,6 +30,7 @@ In our logic app, whenever an HTTP request is received at our logic app’s URI,
         2. URL:  This can be found in your VictorOps account under Settings > Alert Behavior > Integrations > Generic REST
         3. Headers: Content-Type | application/json
         4. Body:
+```json
 {
   "data": "@triggerBody()",
   "entity_display_name": "@{triggerBody()?['context']?['name']}",
@@ -38,11 +39,11 @@ In our logic app, whenever an HTTP request is received at our logic app’s URI,
   "state_message": "@{triggerBody()?['context']?['description']}",
   "monitoring_tool":"Azure"
 }
- 
+```
 Note that this JSON Body will require some tweaking in the future to get the data we absolutely want in the incident. Once again, view the [Logic Apps Workflow Definition Language](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-workflow-definition-language) article for more information. Most of the incident information sent to VictorOps is found in the data field.
 
         5. In the top left of the blade, click Save
-    6. Back in the Logic App Designer and under the "When an HTTP Request is Received", the url has now been generated. Copy this url to the clipboard.
+        6. Back in the Logic App Designer and under the "When an HTTP Request is Received", the url has now been generated. Copy this url to the clipboard.
     
 ### Alerts (on VictorOps)
 1. From the left menu pane, select Monitoring >> Alerts >> New Alert Rule
