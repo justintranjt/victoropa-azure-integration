@@ -13,7 +13,7 @@ In a support case I opened with Azure in July 2018, a VictorOps support engineer
 In our logic app, whenever an HTTP request is received at our logic app’s URI, a HTTP 200 response is triggered and sent back to the original requester. In this case, the requester is the alert rule’s action group firing an HTTP request. In the logic app, we create an HTTP POST request and send it to VictorOps’ generic REST API. This POST request contains a JSON body that is written with the Logic Apps Workflow Definition Language and contains the necessary JSON fields required by the VictorOps REST endpoint. More JSON fields can be added as necessary to make the incident descriptions more readable.
 
 ## Steps 
-### Logic App (on Azure)
+### Logic App (on Azure Logic Apps)
 1. Create a Logic App. The Logic App will serve as the central structure for the integration with VictorOps. Follow these steps:
 2. Create a new Logic App by clicking the Create Resource button in the top left corner of the Azure Portal. You can equivalently follow the first couple steps of this documentation.
     1. Name the application.
@@ -45,7 +45,7 @@ In our logic app, whenever an HTTP request is received at our logic app’s URI,
     
 Note that the JSON Body will require some tweaking in the future to get the data we absolutely want in the incident. Once again, view the [Logic Apps Workflow Definition Language](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-workflow-definition-language) article for more information. Most of the incident information sent to VictorOps is found in the data field.
     
-### Alerts (on VictorOps)
+### Alerts (on Azure Monitor)
 1. From the left menu pane, select Monitoring >> Alerts >> New Alert Rule
 2. Define the alert however you would prefer to monitor things. For testing purposes, I find it easiest to monitor all administrative operations a condition (see Step 3)
 Whenever the "Administrative Activity Log All Administrative operations" has "any" level, with "any" status and event is initiated by "<admin_email_addr>"
