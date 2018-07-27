@@ -29,6 +29,7 @@ In our logic app, whenever an HTTP request is received at our logic app’s URI,
         1. Method: POST
         2. URL:  This can be found in your VictorOps account under Settings > Alert Behavior > Integrations > Generic REST
         3. Headers: Content-Type | application/json
+        
         4. Body:
 ```json
 {
@@ -41,9 +42,7 @@ In our logic app, whenever an HTTP request is received at our logic app’s URI,
 }
 ```
 Note that this JSON Body will require some tweaking in the future to get the data we absolutely want in the incident. Once again, view the [Logic Apps Workflow Definition Language](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-workflow-definition-language) article for more information. Most of the incident information sent to VictorOps is found in the data field.
-
-        5. In the top left of the blade, click Save
-        6. Back in the Logic App Designer and under the "When an HTTP Request is Received", the url has now been generated. Copy this url to the clipboard.
+    5. Save. Back in the Logic App Designer and under the "When an HTTP Request is Received", the URL has now been generated. Copy this URL to the clipboard.
     
 ### Alerts (on VictorOps)
 1. From the left menu pane, select Monitoring >> Alerts >> New Alert Rule
@@ -52,5 +51,5 @@ Whenever the "Administrative Activity Log All Administrative operations" has "an
 3. Define the alert details with any name and description 
 4. For the last step, select a New Action Group, this action group will fire a webhook towards
     1. For the action, select webhook
-    2. For the url of the webhook, paste the url copied earlier from the Logic App
+    2. For the URL of the webhook, paste the URL copied earlier from the Logic App
 5. Save
