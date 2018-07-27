@@ -41,9 +41,9 @@ In our logic app, whenever an HTTP request is received at our logic app’s URI,
   "monitoring_tool":"Azure"
 }
 ```
-Note that this JSON Body will require some tweaking in the future to get the data we absolutely want in the incident. Once again, view the [Logic Apps Workflow Definition Language](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-workflow-definition-language) article for more information. Most of the incident information sent to VictorOps is found in the data field.
+        5. Save. Back in the Logic App Designer and under the "When an HTTP Request is Received", the URL has now been generated. Copy this URL to the clipboard.
     
-    5. Save. Back in the Logic App Designer and under the "When an HTTP Request is Received", the URL has now been generated. Copy this URL to the clipboard.
+Note that the JSON Body will require some tweaking in the future to get the data we absolutely want in the incident. Once again, view the [Logic Apps Workflow Definition Language](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-workflow-definition-language) article for more information. Most of the incident information sent to VictorOps is found in the data field.
     
 ### Alerts (on VictorOps)
 1. From the left menu pane, select Monitoring >> Alerts >> New Alert Rule
