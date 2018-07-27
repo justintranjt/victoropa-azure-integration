@@ -1,0 +1,8 @@
+{
+  "data": "@triggerBody()",
+  "entity_display_name": "@{triggerBody()?['context']?['name']}",
+  "entity_id": "@{triggerBody()?['context']?['id']}",
+  "message_type": "@{if(equals(triggerBody()?['data']?['status'],'Activated'),'recovery','critical')}",
+  "state_message": "@{triggerBody()?['context']?['description']}",
+  "monitoring_tool":"Azure"
+}
